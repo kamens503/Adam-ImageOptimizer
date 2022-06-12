@@ -5,11 +5,11 @@ tinify.key = 'Zt3MxXYzJp1Yfm6QlwfHnd6jQglnwGQx';
 
 module.exports = async function optimizeImg (query, url) {
     const { id, version, category, line, product, index } = query;
-    const root = path.join(__dirname, '/public/');
+    const root = 'public/'
     const folder = `imgs/${category}/${line || 'unique'}/`;
     console.log({ root, folder });
-    if (!fs.existsSync(path.join(root, folder))) {
-        fs.mkdirSync(path.join(root, folder), { recursive: true });
+    if (!fs.existsSync(path.resolve(root, folder))) {
+        fs.mkdirSync(path.resolve(root, folder), { recursive: true });
     }
     const img = `${product}_${version ? version + '_' : ''}${index}_pdf.png`;
     const imgUrl = folder + img;
@@ -24,7 +24,7 @@ module.exports = async function optimizeImg (query, url) {
         width: 600,
         height: 500,
     });
-    await resized.toFile(path.join(root, imgUrl)).then((r) => {
+    await resized.toFile(path.resolve(root, imgUrl)).then((r) => {
         console.log('Image saved & Optimized');
     });
     return `https://${url}/${imgUrl}`;
