@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8081;
-const optimizeImg = require('./optimizeImg/optimizeImg')
-const cleanStrign = require('./utils/cleanString')
+const optimizeImg = require('../optimizeImg/optimizeImg')
+const cleanStrign = require('../utils/cleanString')
 
 const cors = require('cors');
 app.use(cors());
