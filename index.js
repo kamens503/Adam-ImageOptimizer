@@ -25,7 +25,7 @@ async function optimizeImg(query, url) {
 	if (!fs.existsSync('./public/' + folder)) {
 		fs.mkdirSync('./public/' + folder, { recursive: true });
 	}
-	const img = `${product}_${version ? version +'_' : '' }${index}_pdf.png`;
+	const img = `${product}_${version ? version + '_' : ''}${index}_pdf.png`;
 	const img_url = folder + img;
 	if (fs.existsSync('./public/' + img_url)) {
 		return `http://${url}/${img_url}`;
@@ -45,14 +45,14 @@ async function optimizeImg(query, url) {
 }
 app.use(express.static('public'));
 app.get('/', async (req, res) => {
-    if (!req.query.category) {
-        res.send('No passing arguments or missin cateogry').status(400)
-    }
+	if (!req.query.category) {
+		res.send('No passing arguments or missin cateogry').status(400);
+	}
 	const query = {};
 	Object.keys(req.query).forEach((i) => {
 		query[i] = cleanStrigns(req.query[i]);
 	});
-	console.log('GETTING');
+	console.log('GETTING', { query: req.query });
 	const img = await optimizeImg(query, req.get('host'));
 	console.log(req.get('host'));
 	res.send(img).status(200);
