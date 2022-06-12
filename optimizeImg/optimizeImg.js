@@ -7,6 +7,7 @@ module.exports = async function optimizeImg (query, url) {
     const { id, version, category, line, product, index } = query;
     const root = path.join(__dirname, '/public/');
     const folder = `imgs/${category}/${line || 'unique'}/`;
+    console.log({ root, folder });
     if (!fs.existsSync(path.join(root, folder))) {
         fs.mkdirSync(path.join(root, folder), { recursive: true });
     }
