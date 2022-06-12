@@ -7,8 +7,7 @@ const cleanStrign = require('../utils/cleanString')
 const cors = require('cors');
 app.use(cors());
 
-app.use(express.static('public'));
-app.get('/', async (req, res) => {
+app.get('/api', async (req, res) => {
     if (!req.query.category) {
         res.send('No passing arguments or missin cateogry').status(400);
         return;
