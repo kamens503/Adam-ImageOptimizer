@@ -45,6 +45,9 @@ async function optimizeImg(query, url) {
 }
 app.use(express.static('public'));
 app.get('/', async (req, res) => {
+    if (!req.query.category) {
+        res.send('No passing arguments or missin cateogry').status(400)
+    }
 	const query = {};
 	Object.keys(req.query).forEach((i) => {
 		query[i] = cleanStrigns(req.query[i]);
