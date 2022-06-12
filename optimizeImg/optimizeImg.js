@@ -2,7 +2,7 @@ const tinify = require('tinify');
 const fs = require('fs');
 tinify.key = 'Zt3MxXYzJp1Yfm6QlwfHnd6jQglnwGQx';
 
-export default async function optimizeImg (query, url) {
+module.exports = async function optimizeImg (query, url) {
     const { id, version, category, line, product, index } = query;
     const folder = `imgs/${category}/${line || 'unique'}/`;
     if (!fs.existsSync('./public/' + folder)) {

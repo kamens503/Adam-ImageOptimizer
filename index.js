@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8081;
 const optimizeImg = require('./optimizeImg/optimizeImg')
-const cleanStrigns = require('./utils/cleanString')
+const cleanStrign = require('./utils/cleanString')
 
 const cors = require('cors');
 app.use(cors());
@@ -15,7 +15,7 @@ app.get('/', async (req, res) => {
     }
     const query = {};
     Object.keys(req.query).forEach((i) => {
-        query[i] = cleanStrigns(req.query[i]);
+        query[i] = cleanStrign(req.query[i]);
     });
     console.log('GETTING', { query: req.query });
     const img = await optimizeImg(query, req.get('host'));

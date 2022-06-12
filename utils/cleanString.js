@@ -1,4 +1,4 @@
-export default function cleanStrigns (str) {
+module.exports = function cleanStrigns (str) {
     const noSpaces = str.split(' ').join('_');
     const noEspecialCharacters = noSpaces
         .replace(/[|&;$%@"<>()+,/]/g, '')
