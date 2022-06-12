@@ -1,17 +1,19 @@
 const tinify = require('tinify');
+const path = require('path');
 const fs = require('fs');
 tinify.key = 'Zt3MxXYzJp1Yfm6QlwfHnd6jQglnwGQx';
 
 module.exports = async function optimizeImg (query, url) {
     const { id, version, category, line, product, index } = query;
+    const root = path.join(__dirname, '/public/');
     const folder = `imgs/${category}/${line || 'unique'}/`;
-    if (!fs.existsSync('./public/' + folder)) {
-        fs.mkdirSync('./public/' + folder, { recursive: true });
+    if (!fs.existsSync(path.join(root, folder))) {
+        fs.mkdirSync(path.join(root, folder), { recursive: true });
     }
     const img = `${product}_${version ? version + '_' : ''}${index}_pdf.png`;
     const imgUrl = folder + img;
-    if (fs.existsSync('./public/' + imgUrl)) {
-        return `http://${url}/${imgUrl}`;
+    if (fs.existsSync(path.join(root, imgUrl))) {
+        return `https://${url}/${imgUrl}`;
     }
     const source = tinify.fromUrl(
         'https://drive.google.com/uc?export=view&id=' + id
@@ -21,8 +23,8 @@ module.exports = async function optimizeImg (query, url) {
         width: 600,
         height: 500,
     });
-    await resized.toFile('./public/' + imgUrl).then((r) => {
+    await resized.toFile(path.join(root, imgUrl)).then((r) => {
         console.log('Image saved & Optimized');
     });
-    return `http://${url}/${imgUrl}`;
+    return `https://${url}/${imgUrl}`;
 }

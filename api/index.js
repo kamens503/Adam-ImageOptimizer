@@ -9,8 +9,7 @@ app.use(cors());
 
 app.get('/api', async (req, res) => {
     if (!req.query.category) {
-        res.send('No passing arguments or missin cateogry').status(400);
-        return;
+        res.end('No passing arguments or missin cateogry').status(400);
     }
     const query = {};
     Object.keys(req.query).forEach((i) => {
