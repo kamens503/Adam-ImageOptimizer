@@ -20,6 +20,7 @@ const cors = require('cors');
 app.use(cors());
 
 app.post('/api/image', routeImage);
+app.post('/api/', routeImage);
 
 app.listen(PORT, () => {
     console.log('Running localhost', PORT);
