@@ -1,28 +1,28 @@
+const path = require('path')
+require('dotenv').config({
+    path: path.resolve(__dirname, '../.env')
+});
 const express = require('express');
 const app = express();
+const routeImage = require('./image/routeImage')
 const PORT = process.env.PORT || 8081;
-const optimizeImg = require('../optimizeImg/optimizeImg')
-const cleanStrign = require('../utils/cleanString')
+
+if (!process.env.VERCEL) {
+    app.use(
+        express.urlencoded({
+            extended: true,
+        })
+    );
+    app.use(express.json());
+}
 
 const cors = require('cors');
 app.use(cors());
 
-app.get('/api', async (req, res) => {
-    if (!req.query.category) {
-        res.end('No passing arguments or missin cateogry').status(400);
-    }
-    const query = {};
-    Object.keys(req.query).forEach((i) => {
-        query[i] = cleanStrign(req.query[i]);
-    });
-    console.log('GETTING', { query: req.query });
-    const img = await optimizeImg(query, req.get('host'));
-    console.log(req.get('host'));
-    res.send(img).status(200);
-});
+app.post('/api/image', routeImage);
 
 app.listen(PORT, () => {
-console.log('Running localhost', PORT);
+    console.log('Running localhost', PORT);
 });
 
 module.exports = app;
